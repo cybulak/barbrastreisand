@@ -1,6 +1,6 @@
 # BarbraStreisand
 
-![alt text](https://en.wikipedia.org/wiki/Streisand_effect#/media/File:Streisand_Estate.jpg)	
+![alt text](https://upload.wikimedia.org/wikipedia/commons/f/f6/Streisand_Estate.jpg)	
  
 ## Quick start
 ## Tech stack

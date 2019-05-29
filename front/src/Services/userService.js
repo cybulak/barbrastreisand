@@ -7,9 +7,9 @@ export const userService = {
 	register
 };
 
-async function login(username, password) {
+async function login(email, password) {
 	try {
-		const user = await restClient.login(username, password);
+		const user = await restClient.login(email, password);
 		localStorage.setItem('user', JSON.stringify(user.data.user));
 		return user;
 	} catch (error) {
@@ -21,12 +21,12 @@ function logout() {
 	localStorage.removeItem('user');
 }
 
-async function register(firstname, lastname, username, password) {
+async function register(firstname, lastname, email, password) {
 	try {
 		const user = await restClient.register(
 			firstname,
 			lastname,
-			username,
+			email,
 			password
 		);
 		localStorage.setItem('user', JSON.stringify(user.data.user));

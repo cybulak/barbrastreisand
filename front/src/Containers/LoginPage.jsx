@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Input, Button, Card } from 'semantic-ui-react';
+import { Button, Card, Message } from 'semantic-ui-react';
 
+import { Input } from '../Components';
 import { Creators as AuthActions } from '../Reducer/authReducer';
+import FormValidator from '../Helpers/validate';
 
 class LoginPage extends React.Component {
 	constructor(props) {
@@ -10,14 +12,30 @@ class LoginPage extends React.Component {
 
 		this.props.logout();
 
-		this.state = {
-			username: '',
-			password: '',
-			submitted: false
-		};
-
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+
+		this.validator = new FormValidator([
+			{
+				field: 'email',
+				method: 'isEmail',
+				validWhen: true,
+				message: 'Your email is not correct, check it bro'
+			},
+			{
+				field: 'password',
+				method: 'isLength',
+				args: [{ min: 6, max: undefined }],
+				validWhen: true,
+				message: 'Your password is too short mate'
+			}
+		]);
+
+		this.state = {
+			email: '',
+			password: '',
+			validation: this.validator.valid()
+		};
 	}
 
 	handleChange(e) {
@@ -28,17 +46,18 @@ class LoginPage extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 
-		this.setState({ submitted: true });
+		const { email, password } = this.state;
 
-		const { username, password } = this.state;
+		const validation = this.validator.validate(this.state);
+		this.setState({ validation });
 
-		if (username && password) {
-			this.props.login(username, password);
+		if (validation.isValid) {
+			this.props.login(email, password);
 		}
 	}
 
 	render() {
-		const { username, password } = this.state;
+		const { email, password, validation } = this.state;
 
 		return (
 			<div className="login-form">
@@ -46,28 +65,29 @@ class LoginPage extends React.Component {
 					<Card.Content>
 						<Card.Header className="login-form-header">Login</Card.Header>
 						<Card.Description>
-							<div className="input-container">
-								<Input
-									icon="users"
-									iconPosition="left"
-									placeholder="Email"
-									value={username}
-									onChange={this.handleChange}
-									name="username"
-								/>
-							</div>
-							<div className="input-container">
-								<Input
-									icon="lock"
-									iconPosition="left"
-									placeholder="Password"
-									value={password}
-									onChange={this.handleChange}
-									name="password"
-								/>
-							</div>
+							<Input
+								icon="users"
+								placeholder="Email"
+								value={email}
+								onChange={this.handleChange}
+								name="email"
+								validation={validation.email}
+							/>
+							<Input
+								type="password"
+								icon="lock"
+								placeholder="Password"
+								value={password}
+								onChange={this.handleChange}
+								name="password"
+								validation={validation.password}
+							/>
 							<div className="login-button-container">
-								<Button primary onClick={this.handleSubmit}>
+								<Button
+									primary
+									onClick={this.handleSubmit}
+									loading={this.props.logging}
+								>
 									Login
 								</Button>
 							</div>
@@ -80,15 +100,15 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-	const { loggingIn } = state.authReducer;
+	const { logging } = state.authReducer;
 	return {
-		loggingIn
+		logging
 	};
 }
 
 const mapDispatchToProps = dispatch => ({
-	login: (username, password) =>
-		dispatch(AuthActions.loginRequest(username, password)),
+	login: (email, password) =>
+		dispatch(AuthActions.loginRequest(email, password)),
 	logout: () => dispatch(AuthActions.logout())
 });
 

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render correctly input component 1`] = `
+<div
+  className="input-container"
+>
+  <div
+    className="ui left icon input"
+  >
+    <input
+      name="test"
+      onChange={[Function]}
+      placeholder="test"
+      type="text"
+      value="test"
+    />
+    <i
+      aria-hidden="true"
+      className="icon"
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;

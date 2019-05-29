@@ -7,8 +7,8 @@ import history from '../Helpers/history';
 
 export function* login(action) {
 	try {
-		const { username, password } = action;
-		const user = yield call(restClient.login, username, password);
+		const { email, password } = action;
+		const user = yield call(restClient.login, email, password);
 		yield put(AuthActions.loginSuccess(user.data.user));
 	} catch (error) {
 		yield put(AuthActions.loginFailure(error));
@@ -37,12 +37,12 @@ export function* logout() {
 
 export function* register(action) {
 	try {
-		const { firstname, lastname, username, password } = action;
+		const { firstname, lastname, email, password } = action;
 		const user = yield call(
 			restClient.register,
 			firstname,
 			lastname,
-			username,
+			email,
 			password
 		);
 		yield put(RegisterActions.registerSuccess(user.data.user));

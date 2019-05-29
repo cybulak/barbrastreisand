@@ -1,97 +1,135 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Message, Card, Button } from 'semantic-ui-react';
 
 import { Creators as RegisterActions } from '../Reducer/registrationReducer';
+import FormValidator from '../Helpers/validate';
+import { Input } from '../Components';
 
 class RegisterPage extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			user: {
-				firstname: '',
-				lastname: '',
-				username: '',
-				password: ''
-			},
-			submitted: false
-		};
-
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+
+		this.validator = new FormValidator([
+			{
+				field: 'firstname',
+				method: 'isLength',
+				args: [{ min: 3, max: undefined }],
+				validWhen: true,
+				message: 'Your name seems to be too short'
+			},
+			{
+				field: 'lastname',
+				method: 'isLength',
+				args: [{ min: 3, max: undefined }],
+				validWhen: true,
+				message: 'Your lastname seems to be too short'
+			},
+			{
+				field: 'email',
+				method: 'isEmail',
+				validWhen: true,
+				message: 'Your email is not correct, check it bro'
+			},
+			{
+				field: 'password',
+				method: 'isLength',
+				args: [{ min: 6, max: undefined }],
+				validWhen: true,
+				message: 'Your password is too short mate'
+			}
+		]);
+
+		this.state = {
+			firstname: '',
+			lastname: '',
+			email: '',
+			password: '',
+			validation: this.validator.valid()
+		};
 	}
 
 	handleChange(e) {
 		const { name, value } = e.target;
-		const { user } = this.state;
-		this.setState({
-			user: {
-				...user,
-				[name]: value
-			}
-		});
+		this.setState({ [name]: value });
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
 
-		this.setState({ submitted: true });
-		const { firstname, lastname, username, password } = this.state.user;
-		if (firstname && lastname && username && password) {
-			this.props.register(firstname, lastname, username, password);
+		const validation = this.validator.validate(this.state);
+		this.setState({ validation });
+
+		const { firstname, lastname, email, password } = this.state;
+
+		if (validation.isValid) {
+			this.props.register(firstname, lastname, email, password);
 		}
 	}
 
 	render() {
 		const { registering } = this.props;
-		const { user, submitted } = this.state;
+		const { firstname, lastname, email, password, validation } = this.state;
 
 		return (
-			<div>
-				<h2>Register</h2>
-				<form name="form" onSubmit={this.handleSubmit}>
-					<div>
-						<label htmlFor="firstname">First Name</label>
-						<input
-							type="text"
-							name="firstname"
-							value={user.firstname}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div>
-						<label htmlFor="lastname">Last Name</label>
-						<input
-							type="text"
-							name="lastname"
-							value={user.lastname}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div>
-						<label htmlFor="username">Username</label>
-						<input
-							type="text"
-							name="username"
-							value={user.username}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div>
-						<label htmlFor="password">Password</label>
-						<input
-							type="password"
-							name="password"
-							value={user.password}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div>
-						<button>Register</button>
-						<Link to="/login">Login</Link>
-					</div>
-				</form>
+			<div className="register-form">
+				<Card centered>
+					<Card.Content>
+						<Card.Header className="register-form-header">Register</Card.Header>
+						<Card.Description>
+							<Input
+								type="text"
+								icon="users"
+								name="firstname"
+								value={firstname}
+								onChange={this.handleChange}
+								placeholder="Firstname"
+								validation={validation.firstname}
+							/>
+							<Input
+								type="text"
+								name="lastname"
+								icon="users"
+								placeholder="Lastname"
+								value={lastname}
+								onChange={this.handleChange}
+								validation={validation.lastname}
+							/>
+							<Input
+								type="text"
+								name="email"
+								icon="users"
+								placeholder="Email"
+								value={email}
+								onChange={this.handleChange}
+								validation={validation.email}
+							/>
+							<Input
+								type="password"
+								name="password"
+								icon="lock"
+								placeholder="Password"
+								value={password}
+								onChange={this.handleChange}
+								validation={validation.password}
+							/>
+							<div className="register-button-container">
+								<Button
+									primary
+									onClick={this.handleSubmit}
+									loading={registering}
+								>
+									Register
+								</Button>
+								<Link to="/login">Login</Link>
+							</div>
+						</Card.Description>
+					</Card.Content>
+				</Card>
 			</div>
 		);
 	}
@@ -106,9 +144,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		register: (firstname, lastname, username, password) =>
+		register: (firstname, lastname, email, password) =>
 			dispatch(
-				RegisterActions.registerRequest(firstname, lastname, username, password)
+				RegisterActions.registerRequest(firstname, lastname, email, password)
 			)
 	};
 };

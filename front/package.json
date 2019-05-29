@@ -18,7 +18,8 @@
     "reduxsauce": "^1.1.0",
     "seamless-immutable": "^7.1.4",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-react": "^0.87.1",
+    "validator": "^11.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

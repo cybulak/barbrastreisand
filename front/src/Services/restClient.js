@@ -1,23 +1,23 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: '',
+	baseURL: ''
 });
 
 class restClient {
-    static login = (username, password) =>
-        instance.post('/login', {
-            username,
-            password,
-        });
+	static login = (email, password) =>
+		instance.post('/login', {
+			email,
+			password
+		});
 
-    static register = (firstname, lastname, username, password) =>
-        instance.post('/register', {
-            firstname,
-            lastname,
-            username,
-            password
-        });
+	static register = (firstname, lastname, email, password) =>
+		instance.post('/register', {
+			firstname,
+			lastname,
+			email,
+			password
+		});
 }
 
 export { restClient, instance };

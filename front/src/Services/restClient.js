@@ -18,6 +18,12 @@ class restClient {
 			email,
 			password
 		});
+
+	static search = (lat, lng) =>
+		instance.get('/search', {
+			lat,
+			lng
+		});
 }
 
 export { restClient, instance };

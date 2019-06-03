@@ -7,6 +7,7 @@ import { PrivateRoute } from './Components';
 import HomePage from './Containers/HomePage';
 import LoginPage from './Containers/LoginPage';
 import RegisterPage from './Containers/RegisterPage';
+import SearchPage from './Containers/SearchPage';
 
 import './App.scss';
 
@@ -19,6 +20,7 @@ export class App extends React.Component {
 						<PrivateRoute exact path="/" component={HomePage} />
 						<Route path="/login" component={LoginPage} />
 						<Route path="/register" component={RegisterPage} />
+						<Route path="/search" component={SearchPage} />
 					</Router>
 				</div>
 			</ConnectedRouter>

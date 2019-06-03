@@ -2,6 +2,7 @@ import { takeLatest, all } from 'redux-saga/effects';
 
 import { Types as AuthTypes } from '../Reducer/authReducer';
 import { Types as RegisterTypes } from '../Reducer/registrationReducer';
+import { Types as SearchTypes } from '../Reducer/searchReducer';
 import {
 	login,
 	loginSuccess,
@@ -9,6 +10,7 @@ import {
 	register,
 	registerSuccess
 } from './userSaga';
+import { search, geolocate } from './searchSaga.js';
 
 function* sagas() {
 	yield all([
@@ -16,7 +18,9 @@ function* sagas() {
 		takeLatest(AuthTypes.LOGIN_SUCCESS, loginSuccess),
 		takeLatest(AuthTypes.LOGOUT, logout),
 		takeLatest(RegisterTypes.REGISTER_REQUEST, register),
-		takeLatest(RegisterTypes.REGISTER_SUCCESS, registerSuccess)
+		takeLatest(RegisterTypes.REGISTER_SUCCESS, registerSuccess),
+		takeLatest(SearchTypes.SEARCH_REQUEST, search),
+		takeLatest(SearchTypes.GEOCODE, geolocate)
 	]);
 }
 

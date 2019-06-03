@@ -11,12 +11,27 @@ const mockApi = () => {
 		token: 'sampleToken'
 	};
 
+	const sampleResults = [
+		{
+			id: 1,
+			name: 'Barber 1'
+		},
+		{
+			id: 2,
+			name: 'Barber 2'
+		}
+	];
+
 	mock.onPost('/login').reply(200, {
 		user: sampleUser
 	});
 
 	mock.onPost('/register').reply(200, {
 		user: sampleUser
+	});
+
+	mock.onGet('/search').reply(200, {
+		searchResults: sampleResults,
 	});
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Message } from 'semantic-ui-react';
+import { Button, Card } from 'semantic-ui-react';
 
 import { Input } from '../Components';
 import { Creators as AuthActions } from '../Reducer/authReducer';
@@ -99,12 +99,12 @@ class LoginPage extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
 	const { logging } = state.authReducer;
 	return {
 		logging
 	};
-}
+};
 
 const mapDispatchToProps = dispatch => ({
 	login: (email, password) =>

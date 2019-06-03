@@ -9,7 +9,8 @@ export const Input = ({
 	value,
 	onChange,
 	name,
-	validation
+	validation,
+	children
 }) => (
 	<div className="input-container">
 		<SemanticInput
@@ -20,7 +21,9 @@ export const Input = ({
 			onChange={onChange}
 			name={name}
 			error={validation && validation.isInvalid}
-		/>
+		>
+			{children}
+		</SemanticInput>
 		{validation && validation.isInvalid && (
 			<Message error header={`Invalid ${name}`} content={validation.message} />
 		)}
@@ -34,7 +37,8 @@ Input.propTypes = {
 	value: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
-	validation: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
+	validation: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+	children: PropTypes.node
 };
 
 Input.defaultProps = {

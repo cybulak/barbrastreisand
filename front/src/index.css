@@ -21,7 +21,8 @@ body,
 }
 
 .login-form,
-.register-form {
+.register-form,
+.search-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,4 +57,37 @@ body,
 .register-form-header,
 .register-button-container {
   margin-bottom: 20px;
+}
+
+.search-page-input .input input {
+  border: none;
+  flex-grow: 1;
+}
+
+.search-page-input {
+  flex-grow: 1;
+}
+
+.search-page-input .input {
+  width: 100%;
+}
+
+.search-page-input-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-page-container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.geocode-button,
+.search-button {
+  box-shadow: none !important;
+}
+
+.geocode-button {
+  padding-left: 3px !important;
+  padding-right: 3px !important;
 }

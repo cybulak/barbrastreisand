@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Search, Input } from 'semantic-ui-react';
+import { Search } from 'semantic-ui-react';
 
-export class SearchPlaces extends Component {
+export default class SearchPlaces extends Component {
 	constructor() {
 		super();
 
@@ -13,6 +13,52 @@ export class SearchPlaces extends Component {
 
 		this.service = new google.maps.places.AutocompleteService(); //eslint-disable-line no-undef
 		this.geocoder = new google.maps.Geocoder(); //eslint-disable-line no-undef
+	}
+
+	componentDidMount() {
+		if (this.props.geolocate) {
+			this.geolocateMe();
+		}
+	}
+
+	formatGoogleAddress(address) {
+		const { address_components } = address;
+		const route = address_components.find(p => p.types.includes('route'));
+		const streetNumber = address_components.find(p =>
+			p.types.includes('street_number')
+		);
+		const locality = address_components.find(p => p.types.includes('locality'));
+		return `${route && route.long_name} ${streetNumber &&
+			streetNumber.long_name}, ${locality && locality.long_name}`;
+	}
+
+	geolocateMe() {
+		const geolocation = navigator.geolocation;
+
+		if (!geolocation) {
+			throw new Error('Geolocation not supported');
+		}
+
+		geolocation.getCurrentPosition(location => {
+			const {
+				coords: { latitude, longitude }
+			} = location;
+
+			this.geocoder.geocode(
+				{
+					location: { lat: latitude, lng: longitude }
+				},
+				(results, status) => {
+					if (status === 'OK') {
+						const search = this.formatGoogleAddress(results[0]);
+						this.setState({ search });
+						this.props.onSelect(latitude, longitude);
+					} else {
+						throw new Error(status);
+					}
+				}
+			);
+		});
 	}
 
 	onChange = e => {
@@ -47,7 +93,8 @@ export class SearchPlaces extends Component {
 				{ address: data.result.title },
 				(results, status) => {
 					if (status === 'OK') {
-						this.props.onSelect(results[0]);
+						const { lat, lng } = results[0].geometry.location;
+						this.props.onSelect(lat(), lng());
 					} else {
 						console.log('geocoder error', status);
 					}
@@ -80,7 +127,8 @@ SearchPlaces.propTypes = {
 	fields: PropTypes.array,
 	onSelect: PropTypes.func.isRequired,
 	minCharacters: PropTypes.number,
-	className: PropTypes.string
+	className: PropTypes.string,
+	geolocate: PropTypes.bool
 };
 
 SearchPlaces.defaultProps = {
@@ -92,5 +140,6 @@ SearchPlaces.defaultProps = {
 		'formatted_address'
 	],
 	minCharacters: 3,
-	className: ''
+	className: '',
+	geolocate: false
 };

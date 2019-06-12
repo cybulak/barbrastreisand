@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input as SemanticInput, Message } from 'semantic-ui-react';
 
-export const Input = ({
+const Input = ({
 	icon,
 	iconPosition,
 	placeholder,
@@ -46,3 +46,5 @@ Input.defaultProps = {
 	iconPosition: 'left',
 	validation: false
 };
+
+export default Input;

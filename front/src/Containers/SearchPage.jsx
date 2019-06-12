@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Button, Icon, Input } from 'semantic-ui-react';
-import { ReactCustomGoogleAutocomplete } from 'react-google-autocomplete';
+import { Card, Button } from 'semantic-ui-react';
 import { SearchPlaces } from '../Components';
 
 import { Creators as SearchActions } from '../Reducer/searchReducer';
 
 export class SearchPage extends Component {
-	handlePlaceSelect = place => {
-		const { lat, lng } = place.geometry.location;
-		this.props.autocompleteSuccess(lat(), lng());
-	};
+	handlePlaceSelect = (lat, lng) => this.props.autocompleteSuccess(lat, lng);
 
 	handleSearch = () => this.props.searchRequest();
 
@@ -25,14 +21,8 @@ export class SearchPage extends Component {
 									<SearchPlaces
 										onSelect={this.handlePlaceSelect}
 										className="search-page-input"
+										geolocate
 									/>
-									<Button
-										basic
-										className="geocode-button"
-										onClick={this.props.geocode}
-									>
-										<Icon name="compass outline" />
-									</Button>
 									<Button
 										basic
 										onClick={this.handleSearch}
@@ -51,9 +41,8 @@ export class SearchPage extends Component {
 }
 
 const mapStateToProps = state => {
-	const { geocoding, lat, lng } = state.searchReducer;
+	const { lat, lng } = state.searchReducer;
 	return {
-		geocoding,
 		lat,
 		lng
 	};
@@ -62,8 +51,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
 	searchRequest: () => dispatch(SearchActions.searchRequest()),
 	autocompleteSuccess: (lat, lng) =>
-		dispatch(SearchActions.autocompleteSuccess(lat, lng)),
-	geocode: () => dispatch(SearchActions.geocode())
+		dispatch(SearchActions.autocompleteSuccess(lat, lng))
 });
 
 export default connect(

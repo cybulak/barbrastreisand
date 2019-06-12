@@ -1,3 +1,3 @@
 export * from './PrivateRoute';
-export * from './Input/Input.jsx';
-export * from './SearchPlaces/SearchPlaces.jsx';
+export { default as Input } from './Input/Input';
+export { default as SearchPlaces } from './SearchPlaces/SearchPlaces';

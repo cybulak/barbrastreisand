@@ -10,7 +10,7 @@ import {
 	register,
 	registerSuccess
 } from './userSaga';
-import { search, geolocate } from './searchSaga.js';
+import { search } from './searchSaga.js';
 
 function* sagas() {
 	yield all([
@@ -19,8 +19,7 @@ function* sagas() {
 		takeLatest(AuthTypes.LOGOUT, logout),
 		takeLatest(RegisterTypes.REGISTER_REQUEST, register),
 		takeLatest(RegisterTypes.REGISTER_SUCCESS, registerSuccess),
-		takeLatest(SearchTypes.SEARCH_REQUEST, search),
-		takeLatest(SearchTypes.GEOCODE, geolocate)
+		takeLatest(SearchTypes.SEARCH_REQUEST, search)
 	]);
 }
 

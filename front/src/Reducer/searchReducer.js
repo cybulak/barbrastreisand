@@ -4,17 +4,14 @@ import Immutable from 'seamless-immutable';
 const { Types, Creators } = createActions({
 	searchRequest: null,
 	searchRequestSuccess: ['searchResults'],
-	geocodeSuccess: ['latitude', 'longitude'],
-	autocompleteSuccess: ['lat', 'lng'],
-	geocode: null
+	autocompleteSuccess: ['lat', 'lng']
 });
 
 const INITIAL_STATE = Immutable({
 	lat: null,
 	lng: null,
 	searchResult: null,
-	searching: false,
-	geocoding: false
+	searching: false
 });
 
 const setCoordinates = (state, { lat, lng }) => state.merge({ lat, lng });
@@ -24,17 +21,10 @@ const setSearchResults = (state, { searchResults }) =>
 
 const setSearching = state => state.merge({ searching: true });
 
-const setGeocoding = state => state.merge({ geocoding: true });
-
-const geocodingSucces = (state, { latitude, longitude }) =>
-	state.merge({ geocoding: false, lat: latitude, lng: longitude });
-
 const reducer = createReducer(INITIAL_STATE, {
 	[Types.SEARCH_REQUEST]: setSearching,
 	[Types.SEARCH_REQUEST_SUCCESS]: setSearchResults,
-	[Types.GEOCODE_SUCCESS]: geocodingSucces,
-	[Types.AUTOCOMPLETE_SUCCESS]: setCoordinates,
-	[Types.GEOCODE]: setGeocoding
+	[Types.AUTOCOMPLETE_SUCCESS]: setCoordinates
 });
 
 export { reducer, INITIAL_STATE, Types, Creators };

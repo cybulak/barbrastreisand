@@ -17,28 +17,3 @@ export function* search() {
 		console.log('error', err);
 	}
 }
-
-export function* geolocate() {
-	// TODO: GEOLOCATION
-	console.log('start geolocate');
-	const geolocation = navigator.geolocation;
-
-	const location = yield new Promise((resolve, reject) => {
-		if (!geolocation) {
-			reject(new Error('Geolocation not supported'));
-		}
-
-		geolocation.getCurrentPosition(
-			position => resolve(position),
-			() => reject(new Error('Permission denied'))
-		);
-	});
-
-	const {
-		coords: { latitude, longitude }
-	} = location;
-
-	console.log('latitude', latitude);
-	console.log('longitude', longitude);
-	yield put(SearchActions.geocodeSuccess(latitude, longitude));
-}

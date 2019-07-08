@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarbraStreisand.Api", "BarbraStreisand.Api\BarbraStreisand.Api.csproj", "{95EEB07A-2A87-44B1-B9D5-20A57DB71069}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarbraStreisand.Api", "BarbraStreisand.Api\BarbraStreisand.Api.csproj", "{95EEB07A-2A87-44B1-B9D5-20A57DB71069}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarbraStreisand.IdentityServer", "BarbraStreisand.IdentityServer\BarbraStreisand.IdentityServer.csproj", "{5603E49A-AA43-42CE-814C-E05432865909}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{95EEB07A-2A87-44B1-B9D5-20A57DB71069}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95EEB07A-2A87-44B1-B9D5-20A57DB71069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95EEB07A-2A87-44B1-B9D5-20A57DB71069}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5603E49A-AA43-42CE-814C-E05432865909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5603E49A-AA43-42CE-814C-E05432865909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5603E49A-AA43-42CE-814C-E05432865909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5603E49A-AA43-42CE-814C-E05432865909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

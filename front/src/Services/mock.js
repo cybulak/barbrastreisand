@@ -14,19 +14,27 @@ const mockApi = () => {
 	const sampleResults = [
 		{
 			id: 1,
-			name: 'Barber 1'
+			name: 'Barber 1',
+			lat: 52.282065,
+			lng: 21.046829
 		},
 		{
 			id: 2,
-			name: 'Barber 2'
+			name: 'Barber 2',
+			lat: 52.266016,
+			lng: 20.9968
 		},
 		{
 			id: 3,
-			name: 'Barber 3'
+			name: 'Barber 3',
+			lat: 52.237714,
+			lng: 21.041197
 		},
 		{
 			id: 4,
-			name: 'Barber 4'
+			name: 'Barber 4',
+			lat: 52.317373,
+			lng: 20.966399
 		}
 	];
 

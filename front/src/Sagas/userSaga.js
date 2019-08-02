@@ -19,7 +19,7 @@ export function* loginSuccess(action) {
 	try {
 		const { user } = action;
 		localStorage.setItem('user', JSON.stringify(user));
-		history.push('/');
+		history.push('/search');
 		return user;
 	} catch (error) {
 		yield put(AuthActions.loginFailure(error));

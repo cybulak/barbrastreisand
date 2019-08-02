@@ -1,0 +1,15 @@
+.list-page {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.list-page-left-panel {
+  flex: 0 1 50%;
+  padding: 10px;
+}
+
+.list-page-right-panel {
+  flex: 0 1 50%;
+  padding: 10px;
+}

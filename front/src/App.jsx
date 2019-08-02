@@ -4,10 +4,13 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import history from './Helpers/history';
 import { PrivateRoute } from './Components';
-import HomePage from './Containers/HomePage';
-import LoginPage from './Containers/LoginPage';
-import RegisterPage from './Containers/RegisterPage';
-import SearchPage from './Containers/SearchPage';
+import {
+	HomePage,
+	LoginPage,
+	RegisterPage,
+	SearchPage,
+	ListPage
+} from './Containers';
 
 import './App.scss';
 
@@ -21,6 +24,7 @@ export class App extends React.Component {
 						<Route path="/login" component={LoginPage} />
 						<Route path="/register" component={RegisterPage} />
 						<Route path="/search" component={SearchPage} />
+						<Route path="/list" component={ListPage} />
 					</Router>
 				</div>
 			</ConnectedRouter>

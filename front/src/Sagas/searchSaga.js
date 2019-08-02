@@ -10,9 +10,8 @@ export function* search() {
 		const { lat, lng } = yield select(getSearchReducer);
 		if (!lat || !lng) return;
 		const data = yield call(restClient.search, lat, lng);
-
 		yield put(SearchActions.searchRequestSuccess(data.data.searchResults));
-		// history.push('/searchResult');
+		history.push('/list');
 	} catch (err) {
 		console.log('error', err);
 	}

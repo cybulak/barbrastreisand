@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Card } from 'semantic-ui-react';
 
-import { Input } from '../Components';
-import { Creators as AuthActions } from '../Reducer/authReducer';
-import FormValidator from '../Helpers/validate';
+import { Input } from '../../Components';
+import { Creators as AuthActions } from '../../Reducer/authReducer';
+import FormValidator from '../../Helpers/validate';
 
 class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.props.logout();
+		props.logout();
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -99,18 +100,21 @@ class LoginPage extends React.Component {
 	}
 }
 
-const mapStateToProps = state => {
-	const { logging } = state.authReducer;
-	return {
-		logging
-	};
-};
+const mapStateToProps = ({ authReducer: { logging } }) => ({
+	logging
+});
 
 const mapDispatchToProps = dispatch => ({
 	login: (email, password) =>
 		dispatch(AuthActions.loginRequest(email, password)),
 	logout: () => dispatch(AuthActions.logout())
 });
+
+LoginPage.propTypes = {
+	login: PropTypes.func,
+	logout: PropTypes.func,
+	logging: PropTypes.bool
+};
 
 export default connect(
 	mapStateToProps,

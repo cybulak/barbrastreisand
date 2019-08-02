@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Message, Card, Button } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
-import { Creators as RegisterActions } from '../Reducer/registrationReducer';
-import FormValidator from '../Helpers/validate';
-import { Input } from '../Components';
+import { Creators as RegisterActions } from '../../Reducer/registrationReducer';
+import FormValidator from '../../Helpers/validate';
+import { Input } from '../../Components';
 
 class RegisterPage extends Component {
 	constructor(props) {
@@ -135,20 +136,20 @@ class RegisterPage extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	const { registering } = state.registrationReducer;
-	return {
-		registering
-	};
-}
+const mapStateToProps = ({ registrationReducer: { registering } }) => ({
+	registering
+});
 
-const mapDispatchToProps = dispatch => {
-	return {
-		register: (firstname, lastname, email, password) =>
-			dispatch(
-				RegisterActions.registerRequest(firstname, lastname, email, password)
-			)
-	};
+const mapDispatchToProps = dispatch => ({
+	register: (firstname, lastname, email, password) =>
+		dispatch(
+			RegisterActions.registerRequest(firstname, lastname, email, password)
+		)
+});
+
+RegisterPage.propTypes = {
+	register: PropTypes.func,
+	registering: PropTypes.bool
 };
 
 export default connect(

@@ -19,6 +19,14 @@ const mockApi = () => {
 		{
 			id: 2,
 			name: 'Barber 2'
+		},
+		{
+			id: 3,
+			name: 'Barber 3'
+		},
+		{
+			id: 4,
+			name: 'Barber 4'
 		}
 	];
 
@@ -31,7 +39,7 @@ const mockApi = () => {
 	});
 
 	mock.onGet('/search').reply(200, {
-		searchResults: sampleResults,
+		searchResults: sampleResults
 	});
 };
 

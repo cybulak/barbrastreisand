@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
 const INITIAL_STATE = Immutable({
 	lat: null,
 	lng: null,
-	searchResult: null,
+	searchResults: [],
 	searching: false
 });
 

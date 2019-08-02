@@ -10,7 +10,8 @@ const Input = ({
 	onChange,
 	name,
 	validation,
-	children
+	children,
+	type = 'text'
 }) => (
 	<div className="input-container">
 		<SemanticInput
@@ -21,6 +22,7 @@ const Input = ({
 			onChange={onChange}
 			name={name}
 			error={validation && validation.isInvalid}
+			type={type}
 		>
 			{children}
 		</SemanticInput>
@@ -38,7 +40,8 @@ Input.propTypes = {
 	onChange: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
 	validation: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-	children: PropTypes.node
+	children: PropTypes.node,
+	type: PropTypes.string,
 };
 
 Input.defaultProps = {
